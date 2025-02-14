@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta
+import unittest
+import time
 
 
 class Usuario:
@@ -57,20 +59,4 @@ class Banco:
         return "Error en la transferencia. Verifique saldo y cuentas."
 
 
-class PlazoFijo:
-    def __init__(self, usuario, monto, dias, tasa_interes=0.05):
-        self.usuario = usuario
-        self.monto = monto
-        self.dias = dias
-        self.tasa_interes = tasa_interes
-        self.fecha_vencimiento = datetime.now() + timedelta(days=dias)
 
-    def calcular_ganancia(self):
-        return self.monto * (1 + self.tasa_interes)
-
-    def confirmar(self):
-        if self.usuario.retirar(self.monto):
-            self.usuario.registrar_movimiento(
-                f"Plazo fijo de ${self.monto} a {self.dias} días con tasa {self.tasa_interes * 100}%", "Egreso")
-            return f"Plazo fijo confirmado. Monto: ${self.monto}, Plazo: {self.dias} días, Interés: {self.tasa_interes * 100}%. Certificado generado."
-        return "Fondos insuficientes para realizar el plazo fijo."
